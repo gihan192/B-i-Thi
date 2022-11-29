@@ -1,0 +1,68 @@
+CREATE DATABASE QLBenhVien
+GO
+USE QLBenhVien
+GO
+CREATE TABLE BenhVien
+(
+MaBV NVARCHAR(15) ,
+TenBV NVARCHAR(40) NOT NULL,
+CONSTRAINT PK_BenhVien PRIMARY KEY(MaBV)
+)
+GO
+CREATE TABLE KhoaKham
+(
+MaKhoa NVARCHAR(15),
+TenKhoa NVARCHAR(40)not null,
+SoBenhNhan int not null,
+MaBV NVARCHAR(15),
+CONSTRAINT PK_KhoaKham PRIMARY KEY(MaKhoa)
+)
+GO
+CREATE TABLE BenhNhan
+(
+MaBN NVARCHAR(15),
+HoTen NVARCHAR(40) not null,
+Ngaysinh smalldatetime,
+GioiTinh nvarchar(3),
+SoNgayNV int not null,
+MaKhoa NVARCHAR(15),
+CONSTRAINT PK_BenhNhan PRIMARY KEY(MaBN)
+)
+GO
+--***Nhập dữ liệu
+--Bảng Bệnh Nhân:
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'001',N'Đinh Bá Tiên', '02/11/1960', N'Nam', 2, N'101')
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'002',N'Nguyễn Thanh Tùng', '08/20/1962', N'Nam', 5, N'102')
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'003',N'Bùi Ngọc Hằng', '03/11/1954',  N'Nữ', 25, N'102' )
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'004',N'Lê Quỳnh Như', '02/01/1967', N'Nữ', 4, N'101' )
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'005',N'Nguyễn Mạnh Hùng', '03/04/1967', N'Nam', 8, N'102')
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'006',N'Trần Thanh Tâm', '05/04/1957', N'Nam', 9, N'101')
+INSERT INTO BenhNhan(MaBN, HoTen, Ngaysinh, GioiTinh, SoNgayNV, MaKhoa)
+VALUES(N'007',N'Trần Hồng Quang', '09/01/1967', N'Nam', 12, N'101')
+--Bệnh Viện:
+INSERT INTO BenhVien(MaBV,TenBV)
+VALUES(N'201', N'Bệnh Viện Tân Phú')
+INSERT INTO BenhVien(MaBV,TenBV)
+VALUES(N'202', N'Bệnh Viện Tân Bình')
+--Khoa Khám:
+INSERT INTO KhoaKham(MaKhoa, TenKhoa, SoBenhNhan, MaBV)
+VALUES(N'101', N'Khoa Cấp Cứu', 3,N'201')
+INSERT INTO KhoaKham(MaKhoa, TenKhoa, SoBenhNhan, MaBV)
+VALUES(N'102', N'Khoa Răng Hàm Mặt', 4,N'202')
+--TẠO KHÓA NGOẠI 
+ALTER TABLE KhoaKham 
+ADD CONSTRAINT FK_KhoaKham
+FOREIGN KEY(MaBV) 
+REFERENCES BenhVien(MaBV) 
+GO 
+ALTER TABLE BenhNhan
+ADD CONSTRAINT FK_BenhNhan
+FOREIGN KEY(MaKhoa) 
+REFERENCES KhoaKham(MaKhoa) 
+GO
