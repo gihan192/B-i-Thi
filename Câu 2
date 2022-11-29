@@ -1,0 +1,3 @@
+SELECT    dbo.KhoaKham.MaKhoa + ' ' + dbo.KhoaKham.TenKhoa + ' ' + dbo.KhoaKham.SoBenhNhan AS 'Nữ ', dbo.BenhNhan.GioiTinh
+FROM      dbo.KhoaKham INNER JOIN
+WHERE        dbo.BenhNhan ON dbo.KhoaKham.MaKhoa = dbo.KhoaKham.TenKhoa
